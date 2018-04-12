@@ -2,9 +2,8 @@
 import * as React from 'react';
 import axios from 'axios';
 import _uniq from 'lodash.uniq';
-import logo from './logo.svg';
 import type { ActorDataItem } from './types';
-import type { ActorData, Movie, Role } from './types';
+import type { ActorData, Movie } from './types';
 import ActorsList from './ActorsList';
 
 // API endpoint
@@ -107,7 +106,7 @@ class App extends React.Component<Props, State> {
       (a, b) => (a.actor < b.actor ? -1 : a.actor > b.actor ? 1 : 0)
     );
     */
-    console.dir(actorsData);
+    //console.dir(actorsData);
     return actorsData;
   };
 
