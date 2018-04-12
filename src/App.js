@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
 import axios from 'axios';
+import _uniq from 'lodash.uniq';
 import logo from './logo.svg';
 import type { Role } from './types';
 import type { Movie } from './types';
@@ -52,8 +53,27 @@ class App extends React.Component<Props, State> {
     movieData.sort((a, b) => {
       return a.movie < b.movie ? -1 : a.movie > b.movie ? 1 : 0;
     });
-    //console.dir(movieData);
+    console.dir(movieData);
     // Get the list of actors
+    const actors = _uniq(movieData.map(movie => movie.actor));
+    //console.dir(actorArray);
+    // Build an array of actors data in the format required for output
+    // Note that at this point the array is already pre-sorted by movie name/
+    // There is no additional requirement to sort the list of actors by their name.
+    // However, this can be accomplished with a single line of code (see below)
+    const actorsData = actors.map(actor => ({
+      actor,
+      characters: _uniq(
+        movieData.filter(data => data.actor === actor).map(data => data.name)
+      )
+    }));
+    // Uncomment the below code the sort the actors by their name (not in the requirements)
+    /*
+    actorsData.sort(
+      (a, b) => (a.actor < b.actor ? -1 : a.actor > b.actor ? 1 : 0)
+    );
+    */
+    console.dir(actorsData);
   };
 
   render() {
