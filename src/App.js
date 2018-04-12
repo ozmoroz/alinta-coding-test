@@ -3,6 +3,7 @@ import * as React from 'react';
 import axios from 'axios';
 import _uniq from 'lodash.uniq';
 import logo from './logo.svg';
+import type { ActorDataItem } from './types';
 import type { Role } from './types';
 import type { Movie } from './types';
 
@@ -14,18 +15,20 @@ const API_GET_MOVIES = 'http://localhost:3001/movies';
 
 type Props = {};
 type State = {
-  movies?: Array<Movie> // Array of movies fetched from the API endpoint
+  actorsData: ?Array<ActorDataItem>
 };
 
 class App extends React.Component<Props, State> {
-  state = { movies: undefined }; // the initial state
+  state = { actorsData: undefined }; // the initial state
 
   componentWillMount() {
     // Fetch the list of movies
+    // Since our goal is to perform complex transformations or/and filtering
+    // on the data, it makes sense to store it in a denormalized state.
     axios
       .get(API_GET_MOVIES)
       .then(response => {
-        this.setState({ movies: response.data });
+        this.setState({ actorsData: this.denormalizeData(response.data) });
         //console.dir(this.state);
       })
       .catch(error => {
@@ -34,28 +37,41 @@ class App extends React.Component<Props, State> {
       });
   }
 
-  getActors = () => {
-    if (!this.state.movies || this.state.movies.length === 0) return null;
-    // Get the list of actors sorted by the movie name
-    const movieData = [];
-    // Denormalize the movie data
-    this.state.movies.forEach(movie =>
+  /**
+   * Denormalize the data fetched from the Movies API
+   */
+  denormalizeData(data: Array<Movie>): ?Array<ActorDataItem> {
+    if (!data) return undefined;
+    if (data.length === 0) return [];
+    console.dir(data);
+    const actorData = [];
+    data.forEach(movie =>
       movie.roles.forEach(role => {
-        movieData.push({
+        actorData.push({
           actor: role.actor,
           role: role.name,
           movie: movie.name
         });
       })
     );
+    return actorData;
     //console.dir(movieData);
-    // Sort the denormalized array by movie (alphabetical order)
-    movieData.sort((a, b) => {
-      return a.movie < b.movie ? -1 : a.movie > b.movie ? 1 : 0;
-    });
-    console.dir(movieData);
+  }
+
+  getActors = () => {
+    // Since we store actorsData in the state, we may not to mutate it.
+    // In this case it makes to make a copy of that data before mutating
+    // with sort.
+    if (!this.state.actorsData) return undefined;
+
+    const data = this.state.actorsData
+      .slice()
+      // Sort the denormalized array by movie (alphabetical order)
+      .sort((a, b) => {
+        return a.movie < b.movie ? -1 : a.movie > b.movie ? 1 : 0;
+      });
     // Get the list of actors
-    const actors = _uniq(movieData.map(movie => movie.actor));
+    const actors = _uniq(data.map(movie => movie.actor));
     //console.dir(actorArray);
     // Build an array of actors data in the format required for output
     // Note that at this point the array is already pre-sorted by movie name/
@@ -64,7 +80,7 @@ class App extends React.Component<Props, State> {
     const actorsData = actors.map(actor => ({
       actor,
       roles: _uniq(
-        movieData.filter(data => data.actor === actor).map(data => data.role)
+        data.filter(data => data.actor === actor).map(data => data.role)
       )
     }));
     // Uncomment the below code the sort the actors by their name (not in the requirements)
