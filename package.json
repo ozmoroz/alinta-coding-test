@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "eslint-config-react-app": "^2.1.0",
-    "json-server": "^0.12.1"
+    "json-server": "^0.12.1",
+    "react-test-renderer": "^16.3.1"
   }
 }
