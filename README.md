@@ -20,9 +20,9 @@ Additional libraries and tools:
 
 ## API Issues
   - Becase no CORS headers are configured for `https://alintacodingtest.azurewebsites.net/api/Movies` endpoint, an attempt to query that API from a web app hosted externally (e.g. on a different domain) results in the following error:  
-  ```
-  Failed to load https://alintacodingtest.azurewebsites.net/api/Movies: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access.
-  ``` 
+
+  > Failed to load https://alintacodingtest.azurewebsites.net/api/Movies: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access.
+  
   A workaround is to serve the JSON file from a loal webserver.
   - Record for movie _Family Guy_ is invalid - it does not have _actor_ name.
     Ii corrected it in my local JSON file (Patrick Warburton).
