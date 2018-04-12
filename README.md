@@ -23,7 +23,7 @@ Additional libraries and tools:
 
   > Failed to load https://alintacodingtest.azurewebsites.net/api/Movies: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access.
   
-  A workaround is to serve the JSON file from a loal webserver.
+  A workaround is to serve the JSON file from a local webserver with [json-server](https://github.com/typicode/json-server).
   - Record for movie _Family Guy_ is invalid - it does not have _actor_ name.
     Ii corrected it in my local JSON file (Patrick Warburton).
   - A data fragment at the end does not have a movie name:
