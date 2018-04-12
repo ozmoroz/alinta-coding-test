@@ -4,8 +4,7 @@ import axios from 'axios';
 import _uniq from 'lodash.uniq';
 import logo from './logo.svg';
 import type { ActorDataItem } from './types';
-import type { Role } from './types';
-import type { Movie } from './types';
+import type { ActorData, Movie, Role } from './types';
 
 // API endpoint
 //const API_GET_MOVIES = 'https://alintacodingtest.azurewebsites.net/api/Movies';
@@ -15,13 +14,16 @@ const API_GET_MOVIES = 'http://localhost:3001/movies';
 
 type Props = {};
 type State = {
-  actorsData: ?Array<ActorDataItem>
+  actorsData: ?Array<ActorDataItem>,
+  xhrError: ?string
 };
 
 class App extends React.Component<Props, State> {
-  state = { actorsData: undefined }; // the initial state
+  state = { actorsData: undefined, xhrError: undefined }; // the initial state
 
-  componentWillMount() {
+  componentDidMount() {
+    // Reset XHR Error
+    this.setState({ xhrError: undefined });
     // Fetch the list of movies
     // Since our goal is to perform complex transformations or/and filtering
     // on the data, it makes sense to store it in a denormalized state.
@@ -32,8 +34,23 @@ class App extends React.Component<Props, State> {
         //console.dir(this.state);
       })
       .catch(error => {
-        // TODO: Handle XHR error properly
-        console.log(error);
+        this.setState({ xhrError: error.message });
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
       });
   }
 
@@ -43,7 +60,7 @@ class App extends React.Component<Props, State> {
   denormalizeData(data: Array<Movie>): ?Array<ActorDataItem> {
     if (!data) return undefined;
     if (data.length === 0) return [];
-    console.dir(data);
+    //console.dir(data);
     const actorData = [];
     data.forEach(movie =>
       movie.roles.forEach(role => {
@@ -58,14 +75,14 @@ class App extends React.Component<Props, State> {
     //console.dir(movieData);
   }
 
-  getActors = () => {
-    // Since we store actorsData in the state, we may not to mutate it.
-    // In this case it makes to make a copy of that data before mutating
-    // with sort.
+  getActorsData = (): ?Array<ActorData> => {
     if (!this.state.actorsData) return undefined;
 
+    // Since we store actorsData in the state, we shoudln't mutate it.
+    // Instead, we will makes to make a copy of that data before mutating
+    // with sort.
     const data = this.state.actorsData
-      .slice()
+      .slice() // Clone the data before mutating
       // Sort the denormalized array by movie (alphabetical order)
       .sort((a, b) => {
         return a.movie < b.movie ? -1 : a.movie > b.movie ? 1 : 0;
@@ -90,19 +107,43 @@ class App extends React.Component<Props, State> {
     );
     */
     console.dir(actorsData);
+    return actorsData;
   };
 
-  render() {
-    this.getActors();
+  /**
+   * Render an info for a single actor
+   */
+  renderActor(actor: ActorData) {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <li key={actor.actor}>
+        {actor.actor}
+        <ul>
+          {actor.roles.map((role, roleIndex) => (
+            <li key={roleIndex}>{role}</li>
+          ))}
+        </ul>
+      </li>
+    );
+  }
+
+  render() {
+    const actorsData = this.getActorsData();
+
+    return (
+      // Render an error panel if an XHR error occured,
+      // the list of actors otherwise (if not empty)
+      <div className="App container">
+        {this.state.xhrError ? (
+          <div class="card">
+            <div class="card-body">Error occured: {this.state.xhrError}</div>
+          </div>
+        ) : (
+          actorsData && (
+            <ul className="list-unstyled">
+              {actorsData.map(actor => this.renderActor(actor))}
+            </ul>
+          )
+        )}
       </div>
     );
   }
