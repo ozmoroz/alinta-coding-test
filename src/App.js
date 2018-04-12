@@ -43,7 +43,7 @@ class App extends React.Component<Props, State> {
       movie.roles.forEach(role => {
         movieData.push({
           actor: role.actor,
-          name: role.name,
+          role: role.name,
           movie: movie.name
         });
       })
@@ -63,8 +63,8 @@ class App extends React.Component<Props, State> {
     // However, this can be accomplished with a single line of code (see below)
     const actorsData = actors.map(actor => ({
       actor,
-      characters: _uniq(
-        movieData.filter(data => data.actor === actor).map(data => data.name)
+      roles: _uniq(
+        movieData.filter(data => data.actor === actor).map(data => data.role)
       )
     }));
     // Uncomment the below code the sort the actors by their name (not in the requirements)
