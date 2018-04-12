@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActorsList renders correctly 1`] = `
+<ul
+  className="list-unstyled"
+>
+  <li>
+    Alex Borstein
+    <ul>
+      <li>
+        Lois Griffin
+      </li>
+    </ul>
+  </li>
+  <li>
+    Patrick Warburton
+    <ul>
+      <li>
+        Joe Swanson
+      </li>
+    </ul>
+  </li>
+  <li>
+    Seth Green
+    <ul>
+      <li>
+        Luke Skywalker
+      </li>
+      <li>
+        Chris Griffin
+      </li>
+    </ul>
+  </li>
+  <li>
+    Mila Kunis
+    <ul>
+      <li>
+        Meg Griffin
+      </li>
+    </ul>
+  </li>
+  <li>
+    Keifer Sutherland
+    <ul>
+      <li>
+        Dr Barry Wolfson
+      </li>
+      <li>
+        Ace Merrill
+      </li>
+    </ul>
+  </li>
+  <li>
+    Richard Dreyfuss
+    <ul>
+      <li>
+        The Writer
+      </li>
+    </ul>
+  </li>
+  <li>
+    River Phoenix
+    <ul>
+      <li>
+        Chris Chambers
+      </li>
+    </ul>
+  </li>
+  <li>
+    Wil Wheaton
+    <ul>
+      <li>
+        Gorgie Lachance
+      </li>
+      <li>
+        Romulan
+      </li>
+    </ul>
+  </li>
+  <li>
+    Corey Feldman
+    <ul>
+      <li>
+        Teddy Duchamp
+      </li>
+    </ul>
+  </li>
+  <li>
+    Winona Ryder
+    <ul>
+      <li>
+        Amanda Grayson
+      </li>
+    </ul>
+  </li>
+  <li>
+    Leonard Nimoy
+    <ul>
+      <li>
+        Spock
+      </li>
+    </ul>
+  </li>
+  <li>
+    Eric Bana
+    <ul>
+      <li>
+        Nero
+      </li>
+    </ul>
+  </li>
+  <li>
+    Chris Pine
+    <ul>
+      <li>
+        Kirk
+      </li>
+    </ul>
+  </li>
+  <li>
+    Simon Pegg
+    <ul>
+      <li>
+        Scotty
+      </li>
+    </ul>
+  </li>
+</ul>
+`;

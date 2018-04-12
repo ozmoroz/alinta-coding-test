@@ -30,7 +30,7 @@ class App extends React.Component<Props, State> {
     axios
       .get(API_GET_MOVIES)
       .then(response => {
-        this.setState({ actorsData: this.denormalizeData(response.data) });
+        this.setState({ actorsData: App.denormalizeData(response.data) });
         //console.dir(this.state);
       })
       .catch(error => {
@@ -57,7 +57,7 @@ class App extends React.Component<Props, State> {
   /**
    * Denormalize the data fetched from the Movies API
    */
-  denormalizeData(data: Array<Movie>): ?Array<ActorDataItem> {
+  static denormalizeData(data: Array<Movie>): ?Array<ActorDataItem> {
     if (!data) return undefined;
     if (data.length === 0) return [];
     //console.dir(data);
@@ -71,8 +71,8 @@ class App extends React.Component<Props, State> {
         });
       })
     );
+    //console.dir(actorData);
     return actorData;
-    //console.dir(movieData);
   }
 
   getActorsData = (): ?Array<ActorData> => {
