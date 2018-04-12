@@ -25,7 +25,7 @@ class App extends React.Component<Props, State> {
       .get(API_GET_MOVIES)
       .then(response => {
         this.setState({ movies: response.data });
-        console.dir(this.state);
+        //console.dir(this.state);
       })
       .catch(error => {
         // TODO: Handle XHR error properly
@@ -33,7 +33,31 @@ class App extends React.Component<Props, State> {
       });
   }
 
+  getActors = () => {
+    if (!this.state.movies || this.state.movies.length === 0) return null;
+    // Get the list of actors sorted by the movie name
+    const movieData = [];
+    // Denormalize the movie data
+    this.state.movies.forEach(movie =>
+      movie.roles.forEach(role => {
+        movieData.push({
+          actor: role.actor,
+          name: role.name,
+          movie: movie.name
+        });
+      })
+    );
+    //console.dir(movieData);
+    // Sort the denormalized array by movie (alphabetical order)
+    movieData.sort((a, b) => {
+      return a.movie < b.movie ? -1 : a.movie > b.movie ? 1 : 0;
+    });
+    //console.dir(movieData);
+    // Get the list of actors
+  };
+
   render() {
+    this.getActors();
     return (
       <div className="App">
         <header className="App-header">
