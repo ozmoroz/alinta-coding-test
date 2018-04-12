@@ -5,6 +5,7 @@ import _uniq from 'lodash.uniq';
 import logo from './logo.svg';
 import type { ActorDataItem } from './types';
 import type { ActorData, Movie, Role } from './types';
+import ActorsList from './ActorsList';
 
 // API endpoint
 //const API_GET_MOVIES = 'https://alintacodingtest.azurewebsites.net/api/Movies';
@@ -110,22 +111,6 @@ class App extends React.Component<Props, State> {
     return actorsData;
   };
 
-  /**
-   * Render an info for a single actor
-   */
-  renderActor(actor: ActorData) {
-    return (
-      <li key={actor.actor}>
-        {actor.actor}
-        <ul>
-          {actor.roles.map((role, roleIndex) => (
-            <li key={roleIndex}>{role}</li>
-          ))}
-        </ul>
-      </li>
-    );
-  }
-
   render() {
     const actorsData = this.getActorsData();
 
@@ -138,11 +123,7 @@ class App extends React.Component<Props, State> {
             <div class="card-body">Error occured: {this.state.xhrError}</div>
           </div>
         ) : (
-          actorsData && (
-            <ul className="list-unstyled">
-              {actorsData.map(actor => this.renderActor(actor))}
-            </ul>
-          )
+          <ActorsList actors={actorsData} />
         )}
       </div>
     );
