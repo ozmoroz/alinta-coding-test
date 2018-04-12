@@ -1,0 +1,96 @@
+{
+  "movies": [
+    {
+      "name": "Stand By Me",
+      "roles": [
+        {
+          "name": "Gorgie Lachance",
+          "actor": "Wil Wheaton"
+        },
+        {
+          "name": "Chris Chambers",
+          "actor": "River Phoenix"
+        },
+        {
+          "name": "Teddy Duchamp",
+          "actor": "Corey Feldman"
+        },
+        {
+          "name": "Ace Merrill",
+          "actor": "Keifer Sutherland"
+        },
+        {
+          "name": "The Writer",
+          "actor": "Richard Dreyfuss"
+        }
+      ]
+    },
+    {
+      "name": "Star Trek",
+      "roles": [
+        {
+          "name": "Romulan",
+          "actor": "Wil Wheaton"
+        },
+        {
+          "name": "Kirk",
+          "actor": "Chris Pine"
+        },
+        {
+          "name": "Nero",
+          "actor": "Eric Bana"
+        },
+        {
+          "name": "Spock",
+          "actor": "Leonard Nimoy"
+        },
+        {
+          "name": "Scotty",
+          "actor": "Simon Pegg"
+        },
+        {
+          "name": "Amanda Grayson",
+          "actor": "Winona Ryder"
+        }
+      ]
+    },
+    {
+      "name": "Family Guy",
+      "roles": [
+        {
+          "name": "Meg Griffin",
+          "actor": "Mila Kunis"
+        },
+        {
+          "name": "Meg Griffin",
+          "actor": "Mila Kunis"
+        },
+        {
+          "name": "Chris Griffin",
+          "actor": "Seth Green"
+        },
+        {
+          "name": "Luke Skywalker",
+          "actor": "Seth Green"
+        },
+        {
+          "name": "Joe Swanson",
+          "actor": "Patrick Warburton"
+        },
+        {
+          "name": "Lois Griffin",
+          "actor": "Alex Borstein"
+        }
+      ]
+    },
+    {
+      "name": "Flatliners",
+      "roles": [
+        {
+          "name": "Dr Barry Wolfson",
+          "actor": "Keifer Sutherland"
+        }
+      ]
+    }
+  ]
+}
